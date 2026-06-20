@@ -1,7 +1,7 @@
 ## User-Retention-Cohort-Analysis
 Performed cohort analysis using SQL and Google Sheets to evaluate user retention across acquisition channels. Built retention tables, compared promotional and organic user behavior, and identified trends in user engagement. Generated insights to assess acquisition quality and support retention improvement strategies.
 
-## Tools: SQL, Google Sheets, Cohort Analysis, Data Cleaning, Data Visualization
+Tools: SQL, Google Sheets, Cohort Analysis, Data Cleaning, Data Visualization
 
 ## Description:
 Performed cohort analysis to evaluate user retention and engagement over time. Analyzed retention rates across different acquisition channels and compared the behavior of promotional and organic users to assess acquisition quality and long-term user value.
