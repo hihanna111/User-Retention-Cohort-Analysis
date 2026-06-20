@@ -6,7 +6,7 @@ Tools: SQL, Google Sheets, Cohort Analysis, Data Cleaning, Data Visualization
 ## Description:
 Performed cohort analysis to evaluate user retention and engagement over time. Analyzed retention rates across different acquisition channels and compared the behavior of promotional and organic users to assess acquisition quality and long-term user value.
 
-## My Tasks:
+## Tasks:
 • Extracted and transformed data using SQL
 • Cleaned and standardized inconsistent date formats
 • Built user cohorts and calculated retention metrics
@@ -14,7 +14,7 @@ Performed cohort analysis to evaluate user retention and engagement over time. A
 • Developed cohort tables and retention dashboards in Google Sheets
 • Interpreted user behavior trends and engagement patterns
 
-## Result:
+## Results:
 • Identified retention differences between acquisition channels
 • Evaluated the effectiveness of promotional campaigns
 • Highlighted long-term engagement trends across cohorts
