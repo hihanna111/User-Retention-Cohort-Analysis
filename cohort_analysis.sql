@@ -1,5 +1,5 @@
--- Завдання 1. Робота з базою даних та підготовка когортної таблиці
--- пункт 4 - очищення користувачів
+-- Database processing and cohort table preparation
+-- User data cleaning
 with users_parsed as (
 select
 	user_id, 
@@ -9,10 +9,10 @@ select
             when d <> '' and m <> '' and y <> '' then
                 to_date(
                   concat(
-                    lpad(trim(d), 2, '0'), '-', -- повертаємо значення з двох характерів. Якщо довжина менше 2, спереді буде доданий 0 
+                    lpad(trim(d), 2, '0'), '-', -- return a two-character value. If the length is less than 2, a leading 0 is added
                     lpad(trim(m), 2, '0'), '-',
                     case 
-                      when length(trim(y)) = 2 then concat('20', trim(y)) -- якщо рік записаний тільки двома знаками, додаємо спереді 20
+                      when length(trim(y)) = 2 then concat('20', trim(y)) -- if the year is stored with only two digits, prepend 20
                       when length(trim(y)) = 4 then trim(y)
                     end
                 ),
@@ -21,23 +21,23 @@ select
             else null
         end as signup_ts
 from (
--- Розділили дати на окремі частині відділяючи за '-'
+-- Split dates into separate parts using '-' as the delimiter
 	select
 		user_id, 
 		signup_datetime, 
 		promo_signup_flag,
-		split_part(converted_date, '-', 1) as d, -- день
-    	split_part(converted_date, '-', 2) as m, -- місяцб
-    	split_part(converted_date, '-', 3) as y  -- рік
+		split_part(converted_date, '-', 1) as d, -- day
+    	split_part(converted_date, '-', 2) as m, -- month
+    	split_part(converted_date, '-', 3) as y  -- year
     from (
--- Позбулися зайвих пробілів та компонентів часу
+-- Removed extra spaces and time components
 		select
 			ur.user_id, 
 			ur.signup_datetime, 
 			ur.promo_signup_flag,
 	---trim(signup_datetime) as trimed_date,
 	---trim(split_part(trim(signup_datetime),' ',1)) as date_only,
--- Замінили різні делімітери (. / -) на єдиний
+-- Standardized different delimiters (. / -) into a single format
 			replace(replace(replace(trim(split_part(trim(ur.signup_datetime),' ',1)),
             							'.', '-'),
            							 '/', '-'),
@@ -55,10 +55,10 @@ from (
             when d <> '' and m <> '' and y <> '' then
                 to_date(
                   concat(
-                    lpad(trim(d), 2, '0'), '-', -- повертаємо значення з двох характерів. Якщо довжина менше 2, спереді буде доданий 0 
+                    lpad(trim(d), 2, '0'), '-', -- Return a two-character value. If the length is less than 2, a leading 0 is added
                     lpad(trim(m), 2, '0'), '-',
                     case 
-                      when length(trim(y)) = 2 then concat('20', trim(y)) -- якщо рік записаний тільки двома знаками, додаємо спереді 20
+                      when length(trim(y)) = 2 then concat('20', trim(y)) -- If the year is stored with only two digits, prepend 20
                       when length(trim(y)) = 4 then trim(y)
                     end
                 ),
@@ -71,16 +71,16 @@ from (
 		user_id, 
 		event_type,
 		event_datetime,
-		split_part(converted_date, '-', 1) as d, -- день
-    	split_part(converted_date, '-', 2) as m, -- місяцб
-    	split_part(converted_date, '-', 3) as y  -- рік
+		split_part(converted_date, '-', 1) as d, -- day
+    	split_part(converted_date, '-', 2) as m, -- month
+    	split_part(converted_date, '-', 3) as y  -- year
     from (
--- Позбулися зайвих пробілів та компонентів часу
+-- Removed extra spaces and time components
 		select
 			er.user_id, 
 			er.event_type,
 			er.event_datetime,
--- Замінили різні делімітери (. / -) на єдиний
+-- Standardized different delimiters (. / -) into a single format
 			replace(replace(replace(trim(split_part(trim(er.event_datetime),' ',1)),
             						'.', '-'),
            						'/', '-'),
@@ -89,7 +89,7 @@ from (
     ) as events_modified 
   ) as separated_parts
  ),
- -- Об'єднання двох таблиць + розрахунок
+ -- Merge the two tables and calculate cohort metrics
 user_activity as (
 select
 		u.user_id,
